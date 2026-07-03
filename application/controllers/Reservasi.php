@@ -22,7 +22,12 @@ class Reservasi extends MY_Controller {
         $data['start'] = $this->uri->segment(3) ?? 0;
         $data['reservations'] = $this->M_reservasi->getData($config['per_page'], $data['start'], $keyword, $status);
         $data['rooms'] = $this->M_kamar->getAvailableRooms();
-        $data['status_options'] = ['booked' => 'Booked', 'checked_in' => 'Checked In', 'checked_out' => 'Checked Out', 'cancelled' => 'Cancelled'];
+        $data['status_options'] = [
+            'booked' => 'Dipesan',
+            'checked_in' => 'Check In',
+            'checked_out' => 'Check Out',
+            'cancelled' => 'Dibatalkan'
+        ];
         $data['title'] = 'Manajemen Reservasi';
         $data['keyword'] = $keyword;
         $data['filter_status'] = $status;

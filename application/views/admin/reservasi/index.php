@@ -79,7 +79,7 @@
                             <td><?= number_format($reservation->total_price, 0, ',', '.') ?></td>
                             <td class="text-center">
                                 <span class="badge badge-<?= ($reservation->status == 'booked') ? 'secondary' : (($reservation->status == 'checked_in') ? 'primary' : (($reservation->status == 'checked_out') ? 'success' : 'danger')) ?>">
-                                    <?= ucfirst(str_replace('_', ' ', $reservation->status)) ?>
+                                    <?= esc($status_options[$reservation->status] ?? ucfirst(str_replace('_', ' ', $reservation->status))) ?>
                                 </span>
                             </td>
                             <td class="text-center">

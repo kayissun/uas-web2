@@ -80,7 +80,7 @@
                             <td class="text-center"><?= esc($room->capacity) ?></td>
                             <td class="text-center">
                                 <span class="badge badge-<?= ($room->status=='available') ? 'success' : (($room->status=='occupied') ? 'danger' : 'warning') ?>">
-                                    <?= ucfirst($room->status) ?>
+                                    <?= ($room->status=='available') ? 'Tersedia' : (($room->status=='occupied') ? 'Digunakan' : 'Perbaikan') ?>
                                 </span>
                             </td>
                             <td class="text-center">

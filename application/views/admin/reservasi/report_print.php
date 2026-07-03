@@ -34,6 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $status_labels = ['booked' => 'Dipesan', 'checked_in' => 'Check In', 'checked_out' => 'Check Out', 'cancelled' => 'Dibatalkan']; ?>
                         <?php $no = 1; foreach($reservations as $reservation): ?>
                         <tr>
                             <td class="text-center"><?= $no++ ?></td>
@@ -45,7 +46,7 @@
                             <td><?= esc($reservation->check_in) ?></td>
                             <td><?= esc($reservation->check_out) ?></td>
                             <td><?= number_format($reservation->total_price, 0, ',', '.') ?></td>
-                            <td><?= ucfirst(str_replace('_', ' ', $reservation->status)) ?></td>
+                            <td><?= esc($status_labels[$reservation->status] ?? ucfirst(str_replace('_', ' ', $reservation->status))) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
