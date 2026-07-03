@@ -42,9 +42,9 @@
                 <div class="form-group mr-2">
                     <select name="status" class="form-control">
                         <option value="">Semua Status</option>
-                        <option value="available" <?= ($filter_status=='available') ? 'selected' : '' ?>>Available</option>
-                        <option value="occupied" <?= ($filter_status=='occupied') ? 'selected' : '' ?>>Occupied</option>
-                        <option value="maintenance" <?= ($filter_status=='maintenance') ? 'selected' : '' ?>>Maintenance</option>
+                        <option value="available" <?= ($filter_status=='available') ? 'selected' : '' ?>>Tersedia</option>
+                        <option value="occupied" <?= ($filter_status=='occupied') ? 'selected' : '' ?>>Digunakan</option>
+                        <option value="maintenance" <?= ($filter_status=='maintenance') ? 'selected' : '' ?>>Perbaikan</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Filter</button>
@@ -131,9 +131,9 @@
                                                 <div class="form-group col-md-6">
                                                     <label>Status</label>
                                                     <select name="status" class="form-control" required>
-                                                        <option value="available" <?= ($room->status=='available') ? 'selected' : '' ?>>Available</option>
-                                                        <option value="occupied" <?= ($room->status=='occupied') ? 'selected' : '' ?>>Occupied</option>
-                                                        <option value="maintenance" <?= ($room->status=='maintenance') ? 'selected' : '' ?>>Maintenance</option>
+                                                        <option value="available" <?= ($room->status=='available') ? 'selected' : '' ?>>Tersedia</option>
+                                                        <option value="occupied" <?= ($room->status=='occupied') ? 'selected' : '' ?>>Digunakan</option>
+                                                        <option value="maintenance" <?= ($room->status=='maintenance') ? 'selected' : '' ?>>Perbaikan</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -206,9 +206,9 @@
                         <div class="form-group col-md-6">
                             <label>Status</label>
                             <select name="status" class="form-control" required>
-                                <option value="available">Available</option>
-                                <option value="occupied">Occupied</option>
-                                <option value="maintenance">Maintenance</option>
+                                <option value="available">Tersedia</option>
+                                <option value="occupied">Digunakan</option>
+                                <option value="maintenance">Perbaikan</option>
                             </select>
                         </div>
                     </div>

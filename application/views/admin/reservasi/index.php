@@ -100,6 +100,7 @@
 
 </div>
 
+<!-- modal tambah -->
 <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -132,7 +133,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Check-in</label>
-                            <input type="date" name="check_in" class="form-control" required>
+                            <input type="date" name="check_in" id="check_in" class="form-control" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Check-out</label>
@@ -150,3 +151,13 @@
 
 <?php $this->load->view('templates/footer'); ?>
 <?php $this->load->view('templates/scripts'); ?>
+
+<!-- Script untuk mengisi tanggal check-in dengan tanggal hari ini -->
+<script>
+  const dateInput = document.getElementById('check_in');
+  
+  // tanggal hari ini
+  const today = new Date().toISOString().split('T')[0];
+
+  dateInput.value = today;
+</script>
