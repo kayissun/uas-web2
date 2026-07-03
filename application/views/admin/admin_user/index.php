@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-4 text-gray-800">Manajemen User Admin</h1>
+    <h1 class="h3 mb-4 text-gray-800">Manajemen User</h1>
 
     <?php if($this->session->flashdata('success')): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">

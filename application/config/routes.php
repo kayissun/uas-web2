@@ -50,18 +50,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 // $route['default_controller'] = 'welcome';
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 //CUSTOM ROLE
-$route['cek'] = 'home';
-$route['hasil'] = 'home/hasil';
 $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
 $route['dashboard'] = 'dashboard';
 $route['admin_user'] = 'admin_user';
 $route['admin_user/(:any)'] = 'admin_user/$1';
-$route['import'] = 'import';
-$route['import/(:any)'] = 'import/$1';
+$route['kamar'] = 'kamar';
+$route['kamar/(:any)'] = 'kamar/$1';
+$route['reservasi'] = 'reservasi';
+$route['reservasi/(:any)'] = 'reservasi/$1';
 

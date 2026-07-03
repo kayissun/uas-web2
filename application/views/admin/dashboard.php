@@ -8,50 +8,114 @@
 
     <div class="row">
 
-        <!-- Total Siswa -->
+        <!-- Total Kamar -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <h5>Total Siswa</h5>
-                    <h3><?= $total_siswa ?></h3>
+                    <h5>Total Kamar</h5>
+                    <h3><?= $total_rooms ?></h3>
                 </div>
             </div>
         </div>
 
-        <!-- Lulus -->
+        <!-- Kamar Tersedia -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
-                    <h5>Lulus</h5>
-                    <h3><?= $lulus ?></h3>
+                    <h5>Kamar Available</h5>
+                    <h3><?= $available_rooms ?></h3>
                 </div>
             </div>
         </div>
 
-        <!-- Tidak Lulus -->
+        <!-- Reservasi Aktif -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
-                    <h5>Tidak Lulus</h5>
-                    <h3><?= $tidak_lulus ?></h3>
+                    <h5>Reservasi Aktif</h5>
+                    <h3><?= $reserved_rooms ?></h3>
                 </div>
             </div>
         </div>
 
-        <!-- Status Pengumuman -->
+        <!-- Reservasi Dibatalkan -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
-                    <h5>Pengumuman</h5>
-                    <h6><?= $status_pengumuman ?></h6>
-                    <small><?= date('d M Y H:i', strtotime($tanggal_buka)) ?></small>
+                    <h5>Reservasi Cancelled</h5>
+                    <h3><?= $cancelled_reservations ?></h3>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Statistik Reservasi</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="reservasiChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Status Terkini</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <span class="font-weight-bold">Checked In:</span> <?= $checkin_reservations ?>
+                    </div>
+                    <div class="mb-3">
+                        <span class="font-weight-bold">Checked Out:</span> <?= $checkout_reservations ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <?php $this->load->view('templates/footer'); ?>
 <?php $this->load->view('templates/scripts'); ?>
+
+<script>
+var ctx = document.getElementById('reservasiChart');
+if(ctx){
+    var labels = [
+        <?php foreach($chart_data as $item): ?>
+            '<?= ucfirst(str_replace('_', ' ', $item->status)) ?>',
+        <?php endforeach; ?>
+    ];
+    var data = [
+        <?php foreach($chart_data as $item): ?>
+            <?= $item->total ?>,
+        <?php endforeach; ?>
+    ];
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e74a3b'],
+                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#be2617'],
+                hoverBorderColor: 'rgba(234, 236, 244, 1)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            legend: {
+                position: 'bottom'
+            },
+            cutoutPercentage: 60
+        }
+    });
+}
+</script>

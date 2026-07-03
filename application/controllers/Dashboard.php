@@ -5,23 +5,21 @@ class Dashboard extends MY_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('M_siswa');
-        $this->load->model('M_pengumuman');
+        $this->load->model('M_dashboard');
+        $this->load->model('M_reservasi');
     }
 
     public function index(){
 
         $data['title'] = 'Dashboard';
 
-        // statistik siswa
-        $data['total_siswa'] = $this->M_siswa->countAll();
-        $data['lulus'] = $this->M_siswa->countByStatus('LULUS');
-        $data['tidak_lulus'] = $this->M_siswa->countByStatus('TIDAK LULUS');
-
-        // pengumuman
-        $pengumuman = $this->M_pengumuman->get();
-        $data['tanggal_buka'] = $pengumuman->tanggal_buka;
-        $data['status_pengumuman'] = (strtotime(date('Y-m-d H:i:s')) >= strtotime($pengumuman->tanggal_buka)) ? 'SUDAH DIBUKA' : 'BELUM DIBUKA';
+        $data['total_rooms'] = $this->M_dashboard->countRooms();
+        $data['reserved_rooms'] = $this->M_dashboard->countReserved();
+        $data['available_rooms'] = $this->M_dashboard->countAvailableRooms();
+        $data['cancelled_reservations'] = $this->M_dashboard->countReservationsByStatus('cancelled');
+        $data['checkin_reservations'] = $this->M_dashboard->countReservationsByStatus('checked_in');
+        $data['checkout_reservations'] = $this->M_dashboard->countReservationsByStatus('checked_out');
+        $data['chart_data'] = $this->M_dashboard->getReservationChartData();
 
         $this->load->view('admin/dashboard', $data);
     }

@@ -2,7 +2,7 @@
 
 <footer class="sticky-footer bg-white">
     <div class="container my-auto text-center">
-        <span>© Kelulusan App</span>
+        <span>© Hotel Reservasi App</span>
     </div>
 </footer>
 

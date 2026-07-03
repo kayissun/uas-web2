@@ -8,4 +8,12 @@ class MY_Controller extends CI_Controller {
             redirect('auth');
         }
     }
+
+    protected function requireAdmin(){
+        if($this->session->userdata('role') !== 'admin'){
+            $this->session->set_flashdata('error', 'Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
+            redirect('dashboard');
+            exit;
+        }
+    }
 }

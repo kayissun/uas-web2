@@ -5,6 +5,7 @@ class Admin_user extends MY_Controller {
 
     public function __construct(){
         parent::__construct();
+        $this->requireAdmin();
         $this->load->model('M_admin');
         $this->load->library('pagination');
     }
@@ -30,7 +31,9 @@ class Admin_user extends MY_Controller {
         $password = $this->input->post('password', TRUE);
         $password_confirm = $this->input->post('password_confirm', TRUE);
 
-        if(empty($username) || empty($password) || empty($password_confirm)){
+        $role = $this->input->post('role', TRUE) ?: 'petugas';
+
+        if(empty($username) || empty($password) || empty($password_confirm) || empty($role)){
             $this->session->set_flashdata('error', 'Semua field harus diisi.');
             redirect('admin_user');
             return;
@@ -51,6 +54,7 @@ class Admin_user extends MY_Controller {
         $this->M_admin->insert([
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
+            'role' => $role,
             'created_at' => date('Y-m-d H:i:s')
         ]);
 
@@ -82,7 +86,7 @@ class Admin_user extends MY_Controller {
             return;
         }
 
-        $data = ['username' => $username];
+        $data = ['username' => $username, 'role' => $this->input->post('role', TRUE) ?: $admin->role];
         if(!empty($password)){
             if($password !== $password_confirm){
                 $this->session->set_flashdata('error', 'Password konfirmasi tidak cocok.');

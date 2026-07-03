@@ -1,0 +1,8 @@
+{
+	"chat.tools.terminal.autoApprove": {
+		"/^cd /d c:\\\\laragon\\\\www\\\\uas-web2 ; python - <<'PY'\nimport bcrypt\nprint\\(bcrypt\\.hashpw\\(b'admin123', bcrypt\\.gensalt\\(\\)\\)\\.decode\\(\\)\\)\nPY$/": {
+			"approve": true,
+			"matchCommandLine": true
+		}
+	}
+}

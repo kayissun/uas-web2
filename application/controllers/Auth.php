@@ -32,7 +32,10 @@ class Auth extends CI_Controller {
 
                 $this->session->set_userdata([
                     'login' => true,
-                    'username' => $user->username
+                    'user_id' => $user->id,
+                    'username' => $user->username,
+                    'role' => $user->role,
+                    'full_name' => $user->full_name
                 ]);
 
                 // reset failed login
