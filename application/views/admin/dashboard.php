@@ -6,6 +6,14 @@
 
     <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
 
+    <?php if($this->session->userdata('role') === 'petugas'): ?>
+    <div class="alert alert-info" role="alert">
+        <strong>Hak Akses Petugas</strong><br>
+        Petugas dapat login, melihat dashboard, data kamar, reservasi, menambah reservasi, mengubah status reservasi, check-in/check-out tamu, melihat data tamu, upload bukti pembayaran, search, filter, pagination, export PDF, cetak laporan, dan logout.<br>
+        Petugas tidak dapat menambah/menghapus akun, mengubah data user, menghapus data master, atau mengakses menu pengaturan sistem.
+    </div>
+    <?php endif; ?>
+
     <div class="row">
 
         <!-- Total Kamar -->

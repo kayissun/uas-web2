@@ -21,7 +21,7 @@ class Admin_user extends MY_Controller {
 
         $data['start'] = $this->uri->segment(3) ?? 0;
         $data['admins'] = $this->M_admin->getData($config['per_page'], $data['start'], $keyword);
-        $data['title'] = 'Manajemen Admin';
+        $data['title'] = 'Manajemen User';
 
         $this->load->view('admin/admin_user/index', $data);
     }
@@ -39,7 +39,7 @@ class Admin_user extends MY_Controller {
             return;
         }
 
-        if($password !== $password_confirm){
+        if(trim($password) !== trim($password_confirm)){
             $this->session->set_flashdata('error', 'Password konfirmasi tidak cocok.');
             redirect('admin_user');
             return;
@@ -52,13 +52,13 @@ class Admin_user extends MY_Controller {
         }
 
         $this->M_admin->insert([
-            'username' => $username,
+            'username' => trim($username),
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'role' => $role,
             'created_at' => date('Y-m-d H:i:s')
         ]);
 
-        $this->session->set_flashdata('success', 'Admin berhasil ditambahkan.');
+        $this->session->set_flashdata('success', 'User berhasil ditambahkan.');
         redirect('admin_user');
     }
 
@@ -75,7 +75,7 @@ class Admin_user extends MY_Controller {
 
         $admin = $this->M_admin->getById($id);
         if(!$admin){
-            $this->session->set_flashdata('error', 'Admin tidak ditemukan.');
+            $this->session->set_flashdata('error', 'User tidak ditemukan.');
             redirect('admin_user');
             return;
         }
@@ -97,13 +97,13 @@ class Admin_user extends MY_Controller {
         }
 
         $this->M_admin->update($id, $data);
-        $this->session->set_flashdata('success', 'Data admin berhasil diperbarui.');
+        $this->session->set_flashdata('success', 'Data user berhasil diperbarui.');
         redirect('admin_user');
     }
 
     public function hapus($id){
         $this->M_admin->delete($id);
-        $this->session->set_flashdata('success', 'Admin berhasil dihapus.');
+        $this->session->set_flashdata('success', 'User berhasil dihapus.');
         redirect('admin_user');
     }
 

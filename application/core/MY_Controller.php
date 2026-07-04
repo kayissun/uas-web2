@@ -16,4 +16,13 @@ class MY_Controller extends CI_Controller {
             exit;
         }
     }
+
+    protected function requirePetugasOrAdmin(){
+        $role = $this->session->userdata('role');
+        if($role !== 'petugas' && $role !== 'admin'){
+            $this->session->set_flashdata('error', 'Akses ditolak.');
+            redirect('auth/logout');
+            exit;
+        }
+    }
 }

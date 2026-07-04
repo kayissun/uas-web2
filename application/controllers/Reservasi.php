@@ -5,6 +5,7 @@ class Reservasi extends MY_Controller {
 
     public function __construct(){
         parent::__construct();
+        $this->requirePetugasOrAdmin();
         $this->load->model('M_reservasi');
         $this->load->model('M_kamar');
         $this->load->library(['pagination','form_validation']);

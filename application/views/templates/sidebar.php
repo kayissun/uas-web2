@@ -27,12 +27,14 @@
         </a>
     </li>
 
+    <?php if($this->session->userdata('role') === 'admin'): ?>
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin_user') ?>">
             <i class="fas fa-users-cog"></i>
             <span>Manajemen User</span>
         </a>
     </li>
+    <?php endif; ?>
 
     <hr class="sidebar-divider">
 

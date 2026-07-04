@@ -28,7 +28,16 @@ class Auth extends CI_Controller {
             }
 
             // 🔑 VERIFIKASI PASSWORD
-            if(password_verify($password, $user->password)){
+            $password_ok = false;
+            if(!empty($user->password)){
+                if(password_verify($password, $user->password)){
+                    $password_ok = true;
+                } elseif($user->password === $password) {
+                    $password_ok = true;
+                }
+            }
+
+            if($password_ok){
 
                 $this->session->set_userdata([
                     'login' => true,

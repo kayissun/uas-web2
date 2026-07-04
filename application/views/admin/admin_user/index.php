@@ -26,7 +26,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body p-4">
-            <p>Tambah Admin</p>
+            <p>Tambah User</p>
             <form method="post" action="<?= base_url('admin_user/tambah') ?>">
                 <input type="hidden" 
                     name="<?= $this->security->get_csrf_token_name(); ?>" 
@@ -37,10 +37,21 @@
                             class="form-control form-control-sm" 
                             placeholder="Username" required>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                         <input type="password" name="password" 
                             class="form-control form-control-sm" 
                             placeholder="Password" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="password" name="password_confirm" 
+                            class="form-control form-control-sm" 
+                            placeholder="Konfirmasi Password" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select name="role" class="form-control form-control-sm" required>
+                            <option value="petugas">Petugas</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </div>
                     <div class="col-md-2 mb-2">
                         <button type="submit" 
@@ -68,7 +79,7 @@
                     </thead>
                     <tbody>
                         <?php if(empty($admins)): ?>
-                            <tr><td colspan="5" class="text-center">Data admin kosong</td></tr>
+                            <tr><td colspan="5" class="text-center">Data user kosong</td></tr>
                         <?php endif; ?>
                         <?php foreach($admins as $admin): ?>
                         <tr>
@@ -82,7 +93,7 @@
                                 </button>
                                 <form method="post" action="<?= base_url('admin_user/hapus/'.$admin->id) ?>" style="display:inline-block; margin-left:5px;">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus admin ini?')">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus user ini?')">Hapus</button>
                                 </form>
                                 <form method="post" action="<?= base_url('admin_user/reset/'.$admin->id) ?>" style="display:inline-block; margin-left:5px;">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
@@ -108,7 +119,7 @@
                 <form method="post" action="<?= base_url('admin_user/edit/'.$admin->id) ?>">
                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Admin</h5>
+                        <h5 class="modal-title">Edit User</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -127,6 +138,13 @@
                         <div class="form-group">
                             <label>Konfirmasi Password</label>
                             <input type="password" name="password_confirm" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select name="role" class="form-control">
+                                <option value="petugas" <?= ($admin->role == 'petugas') ? 'selected' : '' ?>>Petugas</option>
+                                <option value="admin" <?= ($admin->role == 'admin') ? 'selected' : '' ?>>Admin</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
