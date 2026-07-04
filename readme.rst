@@ -1,5 +1,5 @@
 ###################
-ANGGOTA KEOMPOK
+ANGGOTA KELOMPOK
 ###################
 
 - Kayis Bintang Saputra        32241004
