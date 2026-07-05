@@ -5,7 +5,7 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
 
         if(!$this->session->userdata('login')){
-            redirect('auth');
+            redirect('login');
         }
     }
 
@@ -21,7 +21,7 @@ class MY_Controller extends CI_Controller {
         $role = $this->session->userdata('role');
         if($role !== 'petugas' && $role !== 'admin'){
             $this->session->set_flashdata('error', 'Akses ditolak.');
-            redirect('auth/logout');
+            redirect('logout');
             exit;
         }
     }

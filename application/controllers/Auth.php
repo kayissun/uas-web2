@@ -24,7 +24,7 @@ class Auth extends CI_Controller {
             // 🔒 CEK BRUTE FORCE (max 5x dalam 5 menit)
             if($user->failed_login >= 5 && strtotime($user->last_attempt) > strtotime('-5 minutes')){
                 $this->session->set_flashdata('error', 'Terlalu banyak percobaan login. Coba lagi nanti.');
-                redirect('auth');
+                redirect('login');
             }
 
             // 🔑 VERIFIKASI PASSWORD
@@ -58,17 +58,17 @@ class Auth extends CI_Controller {
                 $this->M_auth->updateFailed($user->id);
 
                 $this->session->set_flashdata('error', 'Password salah');
-                redirect('auth');
+                redirect('login');
             }
 
         } else {
             $this->session->set_flashdata('error', 'Username tidak ditemukan');
-            redirect('auth');
+            redirect('login');
         }
     }
 
     public function logout(){
         $this->session->sess_destroy();
-        redirect('auth');
+        redirect('login');
     }
 }
