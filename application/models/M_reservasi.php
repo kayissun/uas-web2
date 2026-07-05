@@ -63,6 +63,12 @@ class M_reservasi extends CI_Model {
         return $this->db->delete('reservations');
     }
 
+    public function countActiveByRoom($room_id){
+        $this->db->where('room_id', $room_id);
+        $this->db->where_in('status', ['booked', 'checked_in']);
+        return $this->db->count_all_results('reservations');
+    }
+
     public function countByStatus($status){
         return $this->db->where('status', $status)->count_all_results('reservations');
     }

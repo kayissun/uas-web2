@@ -83,6 +83,15 @@
                                 </span>
                             </td>
                             <td class="text-center">
+                                <form method="post" action="<?= base_url('reservasi/update_status/'.$reservation->id) ?>" class="mb-2" style="display:inline-block;">
+                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                    <select name="status" class="form-control form-control-sm" style="display:inline-block; width:auto;">
+                                        <?php foreach($status_options as $key => $label): ?>
+                                        <option value="<?= $key ?>" <?= ($reservation->status == $key) ? 'selected' : '' ?>><?= $label ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <button class="btn btn-sm btn-outline-primary">Update</button>
+                                </form>
                                 <form method="post" action="<?= base_url('reservasi/hapus/'.$reservation->id) ?>" style="display:inline-block;">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus reservasi ini?')">Hapus</button>

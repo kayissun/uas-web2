@@ -58,6 +58,12 @@ class Reservasi extends MY_Controller {
             return;
         }
 
+        if($room->status !== 'available'){
+            $this->session->set_flashdata('error', 'Kamar ini sedang tidak tersedia untuk reservasi.');
+            redirect('reservasi');
+            return;
+        }
+
         $check_in = $this->input->post('check_in', TRUE);
         $check_out = $this->input->post('check_out', TRUE);
         if(strtotime($check_out) <= strtotime($check_in)){
@@ -80,12 +86,53 @@ class Reservasi extends MY_Controller {
             'status' => 'booked'
         ]);
 
+        $this->M_kamar->syncStatusFromReservation($room_id, 'booked');
+
         $this->session->set_flashdata('success', 'Reservasi berhasil dibuat.');
         redirect('reservasi');
     }
 
+    public function update_status($id){
+        $status = $this->input->post('status', TRUE);
+        $allowed_statuses = ['booked', 'checked_in', 'checked_out', 'cancelled'];
+
+        if(!in_array($status, $allowed_statuses, true)){
+            $this->session->set_flashdata('error', 'Status reservasi tidak valid.');
+            redirect('reservasi');
+            return;
+        }
+
+        $reservation = $this->M_reservasi->getById($id);
+        if(!$reservation){
+            $this->session->set_flashdata('error', 'Reservasi tidak ditemukan.');
+            redirect('reservasi');
+            return;
+        }
+
+        $this->M_reservasi->update($id, ['status' => $status]);
+        $this->M_kamar->syncStatusFromReservation($reservation->room_id, $status);
+
+        $this->session->set_flashdata('success', 'Status reservasi berhasil diperbarui.');
+        redirect('reservasi');
+    }
+
     public function hapus($id){
+        $reservation = $this->M_reservasi->getById($id);
+        if(!$reservation){
+            $this->session->set_flashdata('error', 'Reservasi tidak ditemukan.');
+            redirect('reservasi');
+            return;
+        }
+
         $this->M_reservasi->delete($id);
+
+        $room = $this->M_kamar->getById($reservation->room_id);
+        if($room && $room->status !== 'maintenance'){
+            $active_reservations = $this->M_reservasi->countActiveByRoom($reservation->room_id);
+            $room_status = $active_reservations > 0 ? 'occupied' : 'available';
+            $this->M_kamar->update($reservation->room_id, ['status' => $room_status]);
+        }
+
         $this->session->set_flashdata('success', 'Reservasi berhasil dihapus.');
         redirect('reservasi');
     }

@@ -73,6 +73,24 @@ class M_kamar extends CI_Model {
         return $this->db->delete('rooms');
     }
 
+    public function syncStatusFromReservation($room_id, $reservation_status){
+        if(!$room_id){
+            return false;
+        }
+
+        $active_reservations = $this->db->where('room_id', $room_id)
+            ->where_in('status', ['booked', 'checked_in'])
+            ->count_all_results('reservations');
+
+        $current_room = $this->getById($room_id);
+        if($current_room && $current_room->status === 'maintenance'){
+            return true;
+        }
+
+        $new_status = $active_reservations > 0 ? 'occupied' : 'available';
+        return $this->update($room_id, ['status' => $new_status]);
+    }
+
     public function countByStatus($status){
         return $this->db->where('status', $status)->count_all_results('rooms');
     }
