@@ -25,7 +25,7 @@
     }
 
     .report-header h4 {
-        font-family: 'Fraunces', serif;
+        font-family: 'Poppins', serif;
         font-size: 1.5rem;
         font-weight: 600;
         color: var(--ink);

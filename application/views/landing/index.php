@@ -30,14 +30,14 @@
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--paper);
             color: var(--text-dark);
             min-height: 100vh;
         }
 
         h1, h2, h3, h4, h5, h6, .brand-font, .display-6 {
-            font-family: 'Fraunces', serif;
+            font-family: 'Poppins', serif;
             letter-spacing: -0.01em;
             color: var(--text-dark);
         }
@@ -51,7 +51,7 @@
         }
 
         .navbar-brand {
-            font-family: 'Fraunces', serif;
+            font-family: 'Poppins', serif;
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--ink) !important;
@@ -243,7 +243,7 @@
         }
 
         .room-code {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Poppins', monospace;
             font-size: .75rem;
             color: var(--brass);
             font-weight: 600;
@@ -452,7 +452,7 @@
                 </div>
             </div>
             <div class="footer-divider text-center">
-                <p class="mb-0">© <?= date('Y') ?> Hotel Reservasi. Semua hak dilindungi.</p>
+                <p class="mb-0">© <?= date('Y') ?> Hotel Reservasi - Dikelola Mahasiswa</p>
             </div>
         </div>
     </footer>

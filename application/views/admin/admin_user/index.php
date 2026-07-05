@@ -20,7 +20,7 @@
 
     .form-section { background: var(--paper); padding: 1.5rem; border-radius: .9rem; margin-bottom: 2rem; border: 1px solid var(--border); }
 
-    .form-section h6 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--ink); }
+    .form-section h6 { font-family: 'Poppins', serif; font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--ink); }
 
     .form-row-compact { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
 
@@ -74,7 +74,7 @@
 
     .modal-header-custom { background: var(--ink); color: #fff; }
 
-    .modal-title { font-family: 'Fraunces', serif; font-weight: 600; }
+    .modal-title { font-family: 'Poppins', serif; font-weight: 600; }
 
     .form-label { font-size: .8rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: .03em; margin-bottom: .4rem; }
 

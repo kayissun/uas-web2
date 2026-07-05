@@ -25,7 +25,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--paper);
             color: var(--text-dark);
             min-height: 100vh;
@@ -33,7 +33,7 @@
             align-items: center;
         }
 
-        .brand-font { font-family: 'Fraunces', serif; letter-spacing: -0.01em; }
+        .brand-font { font-family: 'Poppins', serif; letter-spacing: -0.01em; }
 
         .login-card {
             border: none;

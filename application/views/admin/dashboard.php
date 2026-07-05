@@ -41,7 +41,7 @@
 
     .stat-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: .5rem; }
 
-    .stat-value { font-size: 2.2rem; font-weight: 700; color: var(--ink); font-family: 'Fraunces', serif; }
+    .stat-value { font-size: 2.2rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', serif; }
 
     .chart-card { border: 1px solid var(--border); border-radius: .9rem; }
 

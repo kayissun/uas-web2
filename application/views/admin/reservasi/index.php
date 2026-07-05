@@ -115,7 +115,7 @@
 
     .modal-header-custom { background: var(--ink); color: #fff; }
 
-    .modal-title { font-family: 'Fraunces', serif; font-weight: 600; }
+    .modal-title { font-family: 'Poppins', serif; font-weight: 600; }
 
     .form-label { font-size: .8rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: .03em; margin-bottom: .4rem; }
 
