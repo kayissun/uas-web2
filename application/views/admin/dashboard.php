@@ -2,95 +2,152 @@
 <?php $this->load->view('templates/sidebar'); ?>
 <?php $this->load->view('templates/navbar'); ?>
 
+<style>
+    :root {
+        --ink: #14213D;
+        --ink-soft: #1F3A5F;
+        --brass: #C9A227;
+        --brass-soft: #E4C766;
+        --paper: #F7F5F0;
+        --text-dark: #23272F;
+        --text-muted: #6B7280;
+        --border: #E8E6E1;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --info: #3B82F6;
+        --danger: #EF4444;
+    }
+
+    .stat-card {
+        border: 1px solid var(--border);
+        border-radius: .9rem;
+        overflow: hidden;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(20,33,61,.12); }
+
+    .stat-card-accent {
+        height: .28rem;
+        background: var(--ink);
+    }
+
+    .stat-card-accent.success { background: var(--success); }
+    .stat-card-accent.warning { background: var(--warning); }
+    .stat-card-accent.info { background: var(--info); }
+    .stat-card-accent.danger { background: var(--danger); }
+
+    .stat-card-body { padding: 1.5rem; }
+
+    .stat-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: .5rem; }
+
+    .stat-value { font-size: 2.2rem; font-weight: 700; color: var(--ink); font-family: 'Fraunces', serif; }
+
+    .chart-card { border: 1px solid var(--border); border-radius: .9rem; }
+
+    .chart-title { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1.5rem; }
+
+    .chart-container { position: relative; height: 300px; }
+
+    .status-box { padding: 1.2rem; background: var(--paper); border-radius: .6rem; margin-bottom: .75rem; }
+
+    .status-label { font-size: .8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: .25rem; }
+
+    .status-value { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+</style>
+
 <div class="container-fluid">
 
-    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-
-    <?php if($this->session->userdata('role') === 'petugas'): ?>
-    <div class="alert alert-info" role="alert">
-        <strong>Hak Akses Petugas</strong><br>
-        Petugas dapat login, melihat dashboard, data kamar, reservasi, menambah reservasi, mengubah status reservasi, check-in/check-out tamu, melihat data tamu, upload bukti pembayaran, search, filter, pagination, export PDF, cetak laporan, dan logout.<br>
-        Petugas tidak dapat menambah/menghapus akun, mengubah data user, menghapus data master, atau mengakses menu pengaturan sistem.
+    <div class="mb-4">
+        <h1 class="page-title">Dashboard</h1>
+        <p style="color: var(--text-muted); font-size: .95rem;">Pantau ringkasan kamar dan reservasi hotel Anda</p>
     </div>
-    <?php endif; ?>
 
-    <div class="row">
+    <!-- Stat Cards -->
+    <div class="row g-4 mb-4">
 
-        <!-- Total Kamar -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <h5>Total Kamar</h5>
-                    <h3><?= $total_rooms ?></h3>
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100">
+                <div class="stat-card-accent"></div>
+                <div class="stat-card-body">
+                    <div class="stat-label"><i class="fas fa-door-open me-1" style="color: var(--brass);"></i>Total Kamar</div>
+                    <div class="stat-value"><?= $total_rooms ?></div>
                 </div>
             </div>
         </div>
 
-        <!-- Kamar Tersedia -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <h5>Kamar Available</h5>
-                    <h3><?= $available_rooms ?></h3>
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100">
+                <div class="stat-card-accent success"></div>
+                <div class="stat-card-body">
+                    <div class="stat-label"><i class="fas fa-check-circle me-1" style="color: var(--success);"></i>Tersedia</div>
+                    <div class="stat-value"><?= $available_rooms ?></div>
                 </div>
             </div>
         </div>
 
-        <!-- Reservasi Aktif -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <h5>Reservasi Aktif</h5>
-                    <h3><?= $reserved_rooms ?></h3>
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100">
+                <div class="stat-card-accent info"></div>
+                <div class="stat-card-body">
+                    <div class="stat-label"><i class="fas fa-bed me-1" style="color: var(--info);"></i>Sedang Dipesan</div>
+                    <div class="stat-value"><?= $reserved_rooms ?></div>
                 </div>
             </div>
         </div>
 
-        <!-- Reservasi Dibatalkan -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <h5>Reservasi Cancelled</h5>
-                    <h3><?= $cancelled_reservations ?></h3>
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100">
+                <div class="stat-card-accent danger"></div>
+                <div class="stat-card-body">
+                    <div class="stat-label"><i class="fas fa-x me-1" style="color: var(--danger);"></i>Dibatalkan</div>
+                    <div class="stat-value"><?= $cancelled_reservations ?></div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="row">
+    <!-- Charts & Status -->
+    <div class="row g-4">
+
         <div class="col-xl-8">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Statistik Reservasi</h6>
-                </div>
+            <div class="card chart-card h-100">
                 <div class="card-body">
-                    <canvas id="reservasiChart"></canvas>
+                    <h5 class="chart-title"><i class="fas fa-chart-doughnut me-2" style="color: var(--brass);"></i>Statistik Reservasi</h5>
+                    <div class="chart-container">
+                        <canvas id="reservasiChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-xl-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Status Terkini</h6>
-                </div>
+            <div class="card chart-card h-100">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <span class="font-weight-bold">Checked In:</span> <?= $checkin_reservations ?>
+                    <h5 class="chart-title"><i class="fas fa-info-circle me-2" style="color: var(--brass);"></i>Status Terkini</h5>
+                    
+                    <div class="status-box">
+                        <div class="status-label"><i class="fas fa-door-open me-1" style="color: var(--info);"></i>Check In</div>
+                        <div class="status-value"><?= $checkin_reservations ?></div>
                     </div>
-                    <div class="mb-3">
-                        <span class="font-weight-bold">Checked Out:</span> <?= $checkout_reservations ?>
+
+                    <div class="status-box">
+                        <div class="status-label"><i class="fas fa-sign-out-alt me-1" style="color: var(--success);"></i>Check Out</div>
+                        <div class="status-value"><?= $checkout_reservations ?></div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>
 
 <?php $this->load->view('templates/footer'); ?>
 <?php $this->load->view('templates/scripts'); ?>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
 <script>
 var ctx = document.getElementById('reservasiChart');
@@ -112,17 +169,27 @@ if(ctx){
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e74a3b'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#be2617'],
+                backgroundColor: ['#14213D', '#10B981', '#3B82F6', '#EF4444'],
+                borderColor: '#FFFFFF',
+                borderWidth: 2,
                 hoverBorderColor: 'rgba(234, 236, 244, 1)'
             }]
         },
         options: {
+            responsive: true,
             maintainAspectRatio: false,
-            legend: {
-                position: 'bottom'
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { family: "'Inter', sans-serif", size: 13 },
+                        padding: 15,
+                        boxWidth: 12,
+                        color: '#6B7280'
+                    }
+                }
             },
-            cutoutPercentage: 60
+            cutout: '65%'
         }
     });
 }
