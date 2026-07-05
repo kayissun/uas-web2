@@ -333,11 +333,6 @@
                 <span><i class="fas fa-concierge-bell"></i></span>
                 Hotel Reservasi
             </a>
-            <div class="ms-auto">
-                <a class="btn btn-sm" href="<?= base_url('login') ?>" style="background: var(--ink); color: #fff; border: none;">
-                    <i class="fas fa-sign-in-alt me-1"></i> Login Admin
-                </a>
-            </div>
         </div>
     </nav>
 
@@ -386,7 +381,7 @@
                             <div class="row g-2">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label"><i class="fas fa-calendar-day me-1"></i>Check-in</label>
-                                    <input type="date" name="check_in" class="form-control" required>
+                                    <input type="date" name="check_in" id="check_in" class="form-control" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label"><i class="fas fa-calendar-day me-1"></i>Check-out</label>
@@ -444,15 +439,15 @@
                     <ul>
                         <li><a href="<?= base_url() ?>">Beranda</a></li>
                         <li><a href="<?= base_url() ?>#kamar">Katalog Kamar</a></li>
-                        <li><a href="<?= base_url('login') ?>">Login Admin</a></li>
+                        <li><a href="<?= base_url() ?>#map">Lokasi</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h6>Hubungi Kami</h6>
                     <ul style="font-size: .9rem;">
-                        <li><i class="fas fa-phone me-1"></i>+62 XXX XXXX XXXX</li>
+                        <li><i class="fas fa-phone me-1"></i>+62 813 2938 2932</li>
                         <li><i class="fas fa-envelope me-1"></i>info@hotelreservasi.com</li>
-                        <li><i class="fas fa-map-marker-alt me-1"></i>Jl. Example, Kota</li>
+                        <li><i class="fas fa-map-marker-alt me-1"></i>Jl. Sawunggalih, Kutoarjo</li>
                     </ul>
                 </div>
             </div>
@@ -465,3 +460,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<!-- Script untuk mengisi tanggal check-in dengan tanggal hari ini -->
+<script>
+  const dateInput = document.getElementById('check_in');
+  
+  // tanggal hari ini
+  const today = new Date().toISOString().split('T')[0];
+
+  dateInput.value = today;
+</script>
