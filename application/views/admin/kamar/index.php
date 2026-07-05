@@ -72,14 +72,7 @@
     .badge-occupied { background: rgba(239,68,68,.1); color: var(--danger); }
     .badge-maintenance { background: rgba(245,158,11,.1); color: var(--warning); }
 
-    .btn-action { padding: .35rem .65rem; font-size: .8rem; border-radius: .4rem; border: none; cursor: pointer; }
-
-    .btn-action-edit { background: var(--warning); color: #fff; }
-    .btn-action-delete { background: var(--danger); color: #fff; }
-
-    .action-stack { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; justify-content: flex-start; }
-
-    .action-stack form { display: inline-flex; margin: 0; }
+    .dropdown-menu { border: 1px solid var(--border); border-radius: .6rem; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
 
     .alert-custom {
         border: none;
@@ -180,7 +173,7 @@
                         <th>Kapasitas</th>
                         <th>Status</th>
                         <th>Gambar</th>
-                        <th style="width: 120px;">Aksi</th>
+                        <th style="width: 90px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -207,13 +200,27 @@
                                 <span style="font-size: .8rem; color: var(--text-muted);">-</span>
                             <?php endif; ?>
                         </td>
-                        <td>
-                            <div class="action-stack">
-                                <button class="btn-action btn-action-edit" data-bs-toggle="modal" data-bs-target="#edit<?= $room->id ?>">Edit</button>
-                                <form method="post" action="<?= base_url('kamar/hapus/'.$room->id) ?>">
-                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button class="btn-action btn-action-delete" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                                </form>
+                        <td style="text-align: center;">
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-sm" style="background: var(--ink); color: #fff; border: none; border-radius: .4rem;" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog"></i> Akses
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" style="font-size: .85rem;">
+                                    <li>
+                                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit<?= $room->id ?>">
+                                            <i class="fas fa-pen me-2" style="color: var(--warning);"></i>Edit Kamar
+                                        </button>
+                                    </li>
+                                    <li><hr class="dropdown-divider" style="margin: .3rem 0;"></li>
+                                    <li>
+                                        <form method="post" action="<?= base_url('kamar/hapus/'.$room->id) ?>" onsubmit="return confirm('Yakin hapus kamar ini?')">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                            <button type="submit" class="dropdown-item text-danger" style="padding: .5rem 1rem;">
+                                                <i class="fas fa-trash me-2"></i>Hapus Kamar
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>

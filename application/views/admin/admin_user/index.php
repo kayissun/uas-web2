@@ -60,15 +60,7 @@
 
     .table tbody tr:hover { background: var(--paper); }
 
-    .btn-action { padding: .35rem .65rem; font-size: .8rem; border-radius: .4rem; border: none; cursor: pointer; }
-
-    .btn-action-edit { background: var(--warning); color: #fff; }
-    .btn-action-reset { background: var(--info); color: #fff; }
-    .btn-action-delete { background: var(--danger); color: #fff; }
-
-    .action-stack { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; justify-content: flex-start; }
-
-    .action-stack form { display: inline-flex; margin: 0; }
+    .dropdown-menu { border: 1px solid var(--border); border-radius: .6rem; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
 
     .alert-custom {
         border: none;
@@ -159,7 +151,7 @@
                         <th>Username</th>
                         <th>Login Gagal</th>
                         <th>Percobaan Terakhir</th>
-                        <th style="width: 200px;">Aksi</th>
+                        <th style="width: 90px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -178,23 +170,35 @@
                                 <?= $admin->last_attempt ? date('d M Y H:i', strtotime($admin->last_attempt)) : '-' ?>
                             </small>
                         </td>
-                        <td>
-                            <div class="action-stack">
-                                <button class="btn-action btn-action-edit" data-bs-toggle="modal" data-bs-target="#edit<?= $admin->id ?>">
-                                    <i class="fas fa-pen me-1"></i>Edit
+                        <td style="text-align: center;">
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-sm" style="background: var(--ink); color: #fff; border: none; border-radius: .4rem;" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v"></i> Aksi
                                 </button>
-                                <form method="post" action="<?= base_url('admin_user/reset/'.$admin->id) ?>">
-                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button class="btn-action btn-action-reset">
-                                        <i class="fas fa-redo me-1"></i>Reset
-                                    </button>
-                                </form>
-                                <form method="post" action="<?= base_url('admin_user/hapus/'.$admin->id) ?>">
-                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button class="btn-action btn-action-delete" onclick="return confirm('Yakin hapus user ini?')">
-                                        <i class="fas fa-trash me-1"></i>Hapus
-                                    </button>
-                                </form>
+                                <ul class="dropdown-menu dropdown-menu-end" style="font-size: .85rem;">
+                                    <li>
+                                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit<?= $admin->id ?>">
+                                            <i class="fas fa-pen me-2" style="color: var(--warning);"></i>Edit User
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <form method="post" action="<?= base_url('admin_user/reset/'.$admin->id) ?>">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                            <button type="submit" class="dropdown-item" style="padding: .5rem 1rem;">
+                                                <i class="fas fa-redo me-2" style="color: var(--info);"></i>Reset Login
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider" style="margin: .3rem 0;"></li>
+                                    <li>
+                                        <form method="post" action="<?= base_url('admin_user/hapus/'.$admin->id) ?>" onsubmit="return confirm('Yakin hapus user ini?')">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                            <button type="submit" class="dropdown-item text-danger" style="padding: .5rem 1rem;">
+                                                <i class="fas fa-trash me-2"></i>Hapus User
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>

@@ -45,25 +45,42 @@
 
     .btn-export:hover { background: var(--paper); }
 
-    .table-wrapper { border: 1px solid var(--border); border-radius: .9rem; overflow: hidden; }
+    /* Melebarkan wrapper tabel hingga batas maksimal halaman */
+    .table-wrapper { 
+        border: 1px solid var(--border); 
+        border-radius: .9rem; 
+        overflow: hidden; 
+        width: 100%; 
+        background: #fff;
+    }
 
-    .table { margin: 0; font-size: .9rem; }
+    .table { 
+        margin: 0; 
+        font-size: .9rem; 
+        width: 100% !important; /* Memaksa tabel memenuhi 100% lebar layar */
+    }
 
     .table thead {
         background: var(--ink);
         color: #fff;
     }
 
+    /* Padding diperlebar agar jarak antar kolom lebih luas dan elegan */
     .table thead th {
         font-size: .75rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: .05em;
-        padding: .9rem .8rem;
+        padding: 1rem 1.2rem; 
         border: none;
+        white-space: nowrap; /* Mencegah judul kolom patah menjadi 2 baris */
     }
 
-    .table tbody td { padding: .8rem; border-color: var(--border); }
+    .table tbody td { 
+        padding: 1rem 1.2rem; 
+        border-color: var(--border); 
+        vertical-align: middle; 
+    }
 
     .table tbody tr { border-bottom: 1px solid var(--border); }
 
@@ -76,6 +93,7 @@
         letter-spacing: .04em;
         padding: .35rem .7rem;
         border-radius: .4rem;
+        display: inline-block;
     }
 
     .badge-booked { background: rgba(59,130,246,.1); color: var(--info); }
@@ -83,19 +101,7 @@
     .badge-checked_out { background: rgba(16,185,129,.1); color: var(--success); }
     .badge-cancelled { background: rgba(239,68,68,.1); color: var(--danger); }
 
-    .btn-action { padding: .35rem .65rem; font-size: .8rem; border-radius: .4rem; border: none; cursor: pointer; transition: all .15s ease; }
-
-    .btn-action-update { background: var(--info); color: #fff; }
-    .btn-action-update:hover { background: #2563EB; }
-
-    .btn-action-delete { background: var(--danger); color: #fff; }
-    .btn-action-delete:hover { background: #DC2626; }
-
-    .action-stack { display: flex; gap: .45rem; align-items: center; flex-wrap: wrap; justify-content: flex-start; }
-
-    .action-stack form { display: inline-flex; margin: 0; }
-
-    .action-stack select { padding: .4rem .6rem; font-size: .85rem; border-radius: .4rem; border: 1px solid var(--border); min-width: 118px; }
+    .dropdown-menu { border: 1px solid var(--border); border-radius: .6rem; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
 
     .alert-custom {
         border: none;
@@ -127,9 +133,7 @@
     .pagination .page-item.active .page-link { background: var(--ink); border-color: var(--ink); }
 </style>
 
-<div class="container-fluid">
-
-    <div class="mb-4">
+<div class="container-fluid px-4"> <div class="mb-4">
         <h1 class="page-title">Manajemen Reservasi</h1>
         <p style="color: var(--text-muted); font-size: .95rem;">Kelola semua reservasi tamu hotel Anda</p>
     </div>
@@ -145,7 +149,6 @@
     </div>
     <?php endif; ?>
 
-    <!-- Filter Section -->
     <div class="filter-section">
         <form method="post" action="<?= base_url('reservasi') ?>">
             <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
@@ -170,13 +173,12 @@
         </form>
     </div>
 
-    <!-- Table -->
     <div class="table-wrapper">
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">No</th>
+                        <th style="width: 60px;" class="text-center">No</th>
                         <th>Kamar</th>
                         <th>Petugas</th>
                         <th>Nama Tamu</th>
@@ -185,7 +187,7 @@
                         <th>Check-out</th>
                         <th>Total</th>
                         <th>Status</th>
-                        <th style="width: 150px;">Aksi</th>
+                        <th style="width: 120px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -200,31 +202,48 @@
                             <div style="font-size: .8rem; color: var(--text-muted);"><?= esc($reservation->room_name) ?></div>
                         </td>
                         <td><?= esc($reservation->username) ?></td>
-                        <td><?= esc($reservation->guest_name) ?></td>
+                        <td style="font-weight: 500;"><?= esc($reservation->guest_name) ?></td>
                         <td><?= esc($reservation->guest_phone) ?></td>
-                        <td><?= esc($reservation->check_in) ?></td>
-                        <td><?= esc($reservation->check_out) ?></td>
-                        <td>Rp <?= number_format($reservation->total_price, 0, ',', '.') ?></td>
+                        <td style="white-space: nowrap;"><?= esc($reservation->check_in) ?></td>
+                        <td style="white-space: nowrap;"><?= esc($reservation->check_out) ?></td>
+                        <td style="font-weight: 600; white-space: nowrap;">Rp <?= number_format($reservation->total_price, 0, ',', '.') ?></td>
                         <td>
                             <span class="badge-custom badge-<?= $reservation->status ?>">
                                 <?= esc($status_options[$reservation->status] ?? ucfirst(str_replace('_', ' ', $reservation->status))) ?>
                             </span>
                         </td>
-                        <td>
-                            <div class="action-stack">
-                                <form method="post" action="<?= base_url('reservasi/update_status/'.$reservation->id) ?>">
-                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <select name="status" class="form-select form-select-sm">
-                                        <?php foreach($status_options as $key => $label): ?>
-                                        <option value="<?= $key ?>" <?= ($reservation->status == $key) ? 'selected' : '' ?>><?= $label ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <button class="btn-action btn-action-update" style="white-space: nowrap;">Update</button>
-                                </form>
-                                <form method="post" action="<?= base_url('reservasi/hapus/'.$reservation->id) ?>">
-                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button class="btn-action btn-action-delete" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                                </form>
+                        <td style="text-align: center;">
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-sm btn-dark px-3" style="border-radius: .4rem; font-size: 0.8rem;" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog me-1"></i> Akses
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" style="font-size: .85rem; min-width: 220px;">
+                                    <li>
+                                        <h6 class="dropdown-header">Ubah Status</h6>
+                                    </li>
+                                    <li>
+                                        <form method="post" action="<?= base_url('reservasi/update_status/'.$reservation->id) ?>" style="padding: 0 1rem;">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                            <div style="display: flex; gap: .5rem; padding: .5rem 0;">
+                                                <select name="status" class="form-select form-select-sm" style="font-size: .8rem;">
+                                                    <?php foreach($status_options as $key => $label): ?>
+                                                    <option value="<?= $key ?>" <?= ($reservation->status == $key) ? 'selected' : '' ?>><?= $label ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <button type="submit" class="btn btn-sm" style="background: var(--brass); color: var(--ink); border: none; white-space: nowrap; font-weight: 600;">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider" style="margin: .3rem 0;"></li>
+                                    <li>
+                                        <form method="post" action="<?= base_url('reservasi/hapus/'.$reservation->id) ?>" onclick="return confirm('Yakin hapus reservasi ini?')">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                            <button type="submit" class="dropdown-item text-danger" style="padding: .5rem 1rem;">
+                                                <i class="fas fa-trash me-2"></i>Hapus Reservasi
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
@@ -234,7 +253,6 @@
         </div>
     </div>
 
-    <!-- Pagination -->
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <?= $this->pagination->create_links(); ?>
@@ -243,7 +261,6 @@
 
 </div>
 
-<!-- Modal Tambah -->
 <div class="modal fade" id="modalTambah" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
