@@ -10,7 +10,7 @@
 
     <li class="nav-item">
         <a class="nav-link <?= $__seg1 === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('dashboard') ?>">
-            <i class="fas fa-fw fa-gauge-high"></i>
+            <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -32,7 +32,7 @@
     <?php if($this->session->userdata('role') === 'admin'): ?>
     <li class="nav-item">
         <a class="nav-link <?= $__seg1 === 'admin_user' ? 'active' : '' ?>" href="<?= base_url('admin_user') ?>">
-            <i class="fas fa-fw fa-users-gear"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Manajemen User</span>
         </a>
     </li>

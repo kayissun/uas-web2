@@ -7,9 +7,8 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <h5 class="page-title mb-0 me-auto"><?= $title ?? 'Dashboard' ?></h5>
-
-            <ul class="navbar-nav align-items-center">
+            <!-- info akun di sebelah kanan -->
+            <ul class="navbar-nav align-items-center pe-3 ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="d-none d-md-inline text-dark small fw-semibold">
