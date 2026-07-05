@@ -96,6 +96,13 @@
         display: inline-block;
     }
 
+    .badge-new {
+        background: rgba(16,185,129,.12);
+        color: #047857;
+        border: 1px solid rgba(16,185,129,.2);
+        margin-left: .35rem;
+    }
+
     .badge-booked { background: rgba(59,130,246,.1); color: var(--info); }
     .badge-checked_in { background: rgba(16,185,129,.1); color: var(--success); }
     .badge-checked_out { background: rgba(16,185,129,.1); color: var(--success); }
@@ -211,6 +218,10 @@
                             <span class="badge-custom badge-<?= $reservation->status ?>">
                                 <?= esc($status_options[$reservation->status] ?? ucfirst(str_replace('_', ' ', $reservation->status))) ?>
                             </span>
+                            <?php $is_new = !empty($reservation->created_at) && strtotime($reservation->created_at) >= strtotime('-24 hours'); ?>
+                            <?php if($is_new): ?>
+                                <span class="badge-custom badge-new">Baru</span>
+                            <?php endif; ?>
                         </td>
                         <td style="text-align: center;">
                             <div class="dropdown" style="display: inline-block;">

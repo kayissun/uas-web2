@@ -349,10 +349,10 @@
                         <h5><i class="fas fa-calendar-check" style="color: var(--brass); margin-right: .5rem;"></i>Pesan Kamar Anda</h5>
 
                         <?php if($this->session->flashdata('success')): ?>
-                            <div class="alert alert-success"><i class="fas fa-check-circle me-2"></i><?= $this->session->flashdata('success') ?></div>
+                            <div class="alert alert-success" id="landingAlert"><i class="fas fa-check-circle me-2"></i><?= $this->session->flashdata('success') ?></div>
                         <?php endif; ?>
                         <?php if($this->session->flashdata('error')): ?>
-                            <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i><?= $this->session->flashdata('error') ?></div>
+                            <div class="alert alert-danger" id="landingAlert"><i class="fas fa-exclamation-circle me-2"></i><?= $this->session->flashdata('error') ?></div>
                         <?php endif; ?>
 
                         <form method="post" action="<?= base_url('landing/pesan') ?>">
@@ -458,15 +458,19 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const dateInput = document.getElementById('check_in');
+        const today = new Date().toISOString().split('T')[0];
+        if (dateInput) {
+            dateInput.value = today;
+        }
+
+        const alertBox = document.getElementById('landingAlert');
+        if (alertBox && alertBox.textContent.includes('berhasil')) {
+            setTimeout(() => {
+                alertBox.classList.add('d-none');
+            }, 4000);
+        }
+    </script>
 </body>
 </html>
-
-<!-- Script untuk mengisi tanggal check-in dengan tanggal hari ini -->
-<script>
-  const dateInput = document.getElementById('check_in');
-  
-  // tanggal hari ini
-  const today = new Date().toISOString().split('T')[0];
-
-  dateInput.value = today;
-</script>

@@ -50,9 +50,20 @@ class Landing extends CI_Controller {
         $nights = (strtotime($check_out) - strtotime($check_in)) / 86400;
         $total_price = $room->price * $nights;
 
+        $user_id = $this->session->userdata('user_id');
+        if(empty($user_id)){
+            $default_user = $this->db->select('id')->order_by('id', 'ASC')->limit(1)->get('users')->row();
+            if(!$default_user){
+                $this->session->set_flashdata('error', 'Tidak ada akun pengguna yang tersedia untuk mencatat reservasi.');
+                redirect('/');
+                return;
+            }
+            $user_id = $default_user->id;
+        }
+
         $this->M_reservasi->insert([
             'room_id' => $room_id,
-            'user_id' => 0,
+            'user_id' => $user_id,
             'guest_name' => $this->input->post('guest_name', TRUE),
             'guest_phone' => $this->input->post('guest_phone', TRUE),
             'check_in' => $check_in,
