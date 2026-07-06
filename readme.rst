@@ -3,7 +3,7 @@ ANGGOTA KELOMPOK
 ###################
 
 - `Kayis Bintang Saputra <https://github.com/kayissun>`_        32241004
-- `Paskalis Trigama Rosario <https://github.com/trigamapaskalis-lgtm>`_   	 3224100
+- `Paskalis Trigama Rosario <https://github.com/trigamapaskalis-lgtm>`_   	 32241006
 - `Rifqi Inzaghi Mukhtar <https://github.com/rifqiinzaghi23-blip>`_     	 32241008
 - `Niken Ayu Pramudita <https://github.com/aniken241-hub>`_         32241011
 
