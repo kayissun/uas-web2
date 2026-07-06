@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 03, 2026 at 03:13 AM
+-- Generation Time: Jul 06, 2026 at 10:08 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.30
 
@@ -45,8 +45,10 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `room_id`, `user_id`, `guest_name`, `guest_phone`, `check_in`, `check_out`, `total_price`, `status`, `created_at`) VALUES
-(2, 1, 1, 'Kayis Bintang Saputra', '081329382932', '2026-07-03', '2026-07-09', 720.00, 'booked', '2026-07-03 10:04:02'),
-(3, 2, 1, 'Ripki', '081312356432', '2026-07-03', '2026-07-30', 8100000.00, 'booked', '2026-07-03 10:05:35');
+(2, 1, 1, 'Kayis Bintang Saputra', '081329382932', '2026-07-03', '2026-07-09', 720.00, 'checked_out', '2026-07-03 10:04:02'),
+(3, 2, 1, 'Ripki', '081312356432', '2026-07-03', '2026-07-30', 8100000.00, 'checked_out', '2026-07-03 10:05:35'),
+(6, 1, 1, 'Nikentut', '081312356432', '2026-07-05', '2026-07-12', 8400000.00, 'checked_in', '2026-07-05 16:23:50'),
+(7, 3, 1, 'sahahu', '081329382935', '2026-07-05', '2026-07-06', 120000.00, 'checked_in', '2026-07-05 16:25:13');
 
 -- --------------------------------------------------------
 
@@ -71,9 +73,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `room_code`, `room_name`, `type_id`, `price`, `capacity`, `status`, `image_path`, `created_at`) VALUES
-(1, 'K01', 'Kamar Anggrek', 2, 1200000.00, 3, 'available', '4d9453189499778dab780298889aed86.jpg', '2026-07-03 09:47:27'),
+(1, 'K01', 'Kamar Anggrek', 2, 1200000.00, 3, 'occupied', '4d9453189499778dab780298889aed86.jpg', '2026-07-03 09:47:27'),
 (2, 'K02', 'Kamar Dahlia', 1, 300000.00, 2, 'available', '372b0df7ebdf9553688f56b12316b212.jpg', '2026-07-03 09:55:41'),
-(3, 'K03', 'Kamar Mawar', 3, 120000.00, 2, 'maintenance', '460a43c67b98d4685c0ebeda1133fc66.jpg', '2026-07-03 09:57:04');
+(3, 'K03', 'Kamar Mawar', 3, 120000.00, 2, 'occupied', '460a43c67b98d4685c0ebeda1133fc66.jpg', '2026-07-03 09:57:04');
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`, `full_name`, `created_at`, `failed_login`, `last_attempt`) VALUES
-(1, 'admin', '$2y$10$mVrNMY02IwSPcZLNdM.whes0h.wKH/FfKSQ38jGrpHVu.rKqzyUYq', 'admin', 'Administrator', '2026-07-03 09:28:59', 0, NULL);
+(1, 'admin', '$2y$10$mVrNMY02IwSPcZLNdM.whes0h.wKH/FfKSQ38jGrpHVu.rKqzyUYq', 'admin', 'Administrator', '2026-07-03 09:28:59', 0, NULL),
+(2, 'petugas', '$2y$10$I0GSNh2evZK/3l3lCH/lPeZV3Fr.KoP9yX2AFJGoXZu8ueaCp12SK', 'petugas', NULL, '2026-07-05 14:22:54', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -163,7 +166,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -181,7 +184,7 @@ ALTER TABLE `room_types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
