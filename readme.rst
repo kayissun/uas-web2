@@ -2,10 +2,10 @@
 ANGGOTA KELOMPOK
 ###################
 
-- Kayis Bintang Saputra        32241004
-- Rifqi Inzaghi Mukhtar     	 32241008
-- Paskalis Trigama Rosario   	 3224100
-- Niken Ayu Pramudita          32241011
+- `Kayis Bintang Saputra <https://github.com/kayissun>`_        32241004
+- `Paskalis Trigama Rosario <https://github.com/trigamapaskalis-lgtm>`_   	 3224100
+- `Rifqi Inzaghi Mukhtar <https://github.com/rifqiinzaghi23-blip>`_     	 32241008
+- `Niken Ayu Pramudita <https://github.com/aniken241-hub>`_         32241011
 
 ###################
 What is CodeIgniter
