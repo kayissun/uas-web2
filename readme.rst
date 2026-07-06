@@ -8,6 +8,12 @@ ANGGOTA KELOMPOK
 - `Niken Ayu Pramudita <https://github.com/aniken241-hub>`_         32241011
 
 ###################
+LOGIN
+###################
+- username = admin | password = admin123
+- username = petugas | password = petugas123
+
+###################
 What is CodeIgniter
 ###################
 
